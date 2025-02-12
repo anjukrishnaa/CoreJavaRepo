@@ -1,7 +1,9 @@
+import java.util. Scanner;
 public class PrimeNum{
 	public static void main(String args[]){
-		int num=1345;
-
+		Scanner sc=new Scanner(System.in)
+		System.out.println("Enter the number");
+		int num=sc.nextInt();
 		boolean flag=false;
 		if(num==0 || num==1 )
 			flag= true;
