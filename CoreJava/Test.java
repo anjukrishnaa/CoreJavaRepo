@@ -28,12 +28,12 @@ class StudentDetail<students>{
    
     Scanner sc = new Scanner(System.in);
     public void addStudent(Student[] students){
-        if(currentSize>=students.length)
-        {
-            System.out.println("Array is full");
-            return;
+        try{
+        if(currentSize>=students.length) {
+            throw new CustomExceptions("Array is full");
+             }
 
-        }
+
         System.out.println("Enter the id of the student: ");
         int id = sc.nextInt();
         System.out.println("Enter the name of the student: ");
@@ -45,6 +45,10 @@ class StudentDetail<students>{
         students [currentSize]= new Student(id, name, rollNo, marks);
         currentSize++;
         System.out.println("Students added");
+        }
+        catch(Exception e){
+            System.out.println(e);
+        }
     }
     
     public void deleteStudent(Student[] students){
@@ -91,8 +95,13 @@ class StudentDetail<students>{
 }
 }
 
-public class Test {
-    public static void main(String[] args) {
+ class CustomExceptions extends Exception{
+    public CustomExceptions(String message){
+        super(message);
+    }
+}
+public class Test{
+    public static void main(String[] args) throws CustomExceptions{
         Student[] students =new Student[3];
         Scanner sc = new Scanner(System.in);
         StudentDetail sd= new StudentDetail();
