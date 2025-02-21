@@ -1,4 +1,4 @@
-//import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 class Student{
@@ -22,17 +22,12 @@ class Student{
 }
 
 class StudentDetail<students>{
-    private Student[] students ;
-    int currentSize=0;
-    int i;
+    private ArrayList<Student> studentlist =new ArrayList<>();
+   // int currentSize=0;
+    //int i;
    
     Scanner sc = new Scanner(System.in);
-    public void addStudent(Student[] students){
-        try{
-        if(currentSize>=students.length) {
-            throw new CustomExceptions("Array is full");
-             }
-
+    public void addStudent(){
 
         System.out.println("Enter the id of the student: ");
         int id = sc.nextInt();
@@ -42,85 +37,65 @@ class StudentDetail<students>{
         int rollNo = sc.nextInt();
         System.out.println("Enter the marks of the student: ");
         int marks = sc.nextInt();
-        students [currentSize]= new Student(id, name, rollNo, marks);
-        currentSize++;
+        studentlist.add( new Student(id, name, rollNo, marks));
         System.out.println("Students added");
-        }
-        catch(Exception e){
-            System.out.println(e);
-        }
+
     }
     
-    public void deleteStudent(Student[] students){
-        System.out.println("enter the roll no to delete");
-        int rolldelete = sc.nextInt();
-        boolean flag=false;
-        if (currentSize==0){
-            System.out.println("No students to delete");
-            return;
-        }else{
-        for(i=0;i<currentSize;i++){
-            //currentSize--;
-            
-            if(students[i].rollNo==rolldelete){
-               // students[i] = null;
-               flag=true;
-               for(int j=i;j<currentSize;j++){
-               students[j]=students[j+1];
-                students[j+1]=null;
-                
-               }
-               currentSize--;
-               System.out.println("element deleted");
+    public void deleteStudent(){
+        System.out.println("Enter the parameter which you would like to remove: ");
+        int rNo = sc.nextInt();
+        boolean flag = false;
+        for(int i = 0; i < studentlist.size(); i++){
+            if (studentlist.get(i).rollNo == rNo){
+                studentlist.remove(i);
+                flag = true;
+                System.out.println("Student deleted.");
+                break;
             }
         }
+        if (!flag){
+            System.out.println("Student not found.");
+        }
+
 
     }
-}
+
         
    
-    public void readStudent(Student[] students){
-        if (currentSize==0){
-            System.out.println("No students to display");
-        }else{
-            System.out.println("List of Students"+currentSize);
-            for(i=0;i<currentSize;i++){
-                //students[i].display(); 
-                System.out.println("student id:"+students[i].id+"\nStudent name:"+students[i].name+"\nStudent rollNo:"+students[i].rollNo+"\nStudents marks:"+students[i].marks);
+    public void readStudent(){
+        if (studentlist.isEmpty()){
+            System.out.println("No students to display .list is empty");
+        }
 
-            }
-            
-       
+        for(Student student:studentlist){
+            //students[i].display();
+            System.out.println("student id:"+student.id+"\nStudent name:"+student.name+"\nStudent rollNo:"+student.rollNo+"\nStudents marks:"+student.marks);
+
+        }
     }
 }
-}
 
- class CustomExceptions extends Exception{
-    public CustomExceptions(String message){
-        super(message);
-    }
-}
+
 public class Test{
-    public static void main(String[] args) throws CustomExceptions{
-        Student[] students =new Student[3];
+    public static void main(String[] args) {
+       ArrayList<Student> studentlist =new ArrayList<>();
+        //Student[] students =new Student[3];
         Scanner sc = new Scanner(System.in);
         StudentDetail sd= new StudentDetail();
         int option;
 
         
         do {
-            System.out.println("1. Add student");
-            System.out.println("2. Read student");
-            System.out.println("3. Remove student");
-            System.out.println("4. Exit");
+            System.out.println("1. Add student\n 2. Read student \n 3. Remove student \n 4. Exit");
              option = sc.nextInt();
 
             switch(option){
-                case 1: sd.addStudent(students);
+                case 1: sd.addStudent();
                         break;
-                case 2: sd.readStudent(students);
+                case 2: sd.readStudent();
                         break;
-                case 3:sd.deleteStudent(students);
+                case 3:sd.deleteStudent();
                         break;
                 case 4: System.out.println("exit");
                         break;
