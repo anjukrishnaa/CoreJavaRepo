@@ -15,10 +15,7 @@ class Student{
         this.rollNo = rollNo;
         this.marks = marks;
     }
-//public void display()
-//{
-    //System.out.println("student id:"+id+"\nStudent name:"+name+"\nStudent rollNo:"+rollNo+"\nStudents marks:"+marks);
-//}
+
 
 
 }
