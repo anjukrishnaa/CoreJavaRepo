@@ -1,5 +1,7 @@
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 class Student{
     int id;
@@ -22,9 +24,8 @@ class Student{
 }
 
 class StudentDetail<students>{
-    private ArrayList<Student> studentlist =new ArrayList<>();
-   // int currentSize=0;
-    //int i;
+    private List<Student> studentlist =new ArrayList<>();
+
    
     Scanner sc = new Scanner(System.in);
     public void addStudent(){
@@ -42,21 +43,20 @@ class StudentDetail<students>{
 
     }
     
-    public void deleteStudent(){
+    public void deleteStudent() {
         System.out.println("Enter the parameter which you would like to remove: ");
         int rNo = sc.nextInt();
-        boolean flag = false;
-        for(int i = 0; i < studentlist.size(); i++){
-            if (studentlist.get(i).rollNo == rNo){
-                studentlist.remove(i);
-                flag = true;
-                System.out.println("Student deleted.");
-                break;
-            }
+        List<Student> updatedList = studentlist.stream()
+                .filter(student -> student.rollNo != rNo).collect(Collectors.toList());
+
+        if (updatedList.size() == studentlist.size()) {
+            System.out.println("No students deleted");
+
+        } else {
+            studentlist = updatedList;
+            System.out.println("student deleted successfully");
         }
-        if (!flag){
-            System.out.println("Student not found.");
-        }
+
 
 
     }
